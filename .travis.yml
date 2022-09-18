@@ -6,7 +6,7 @@ services:
   - docker
 
 # Pre-testing installs
-before_script : [ ]
+before_script : []
 script :
  -docker --version
  -docker build -f udagram-api-feed/Dockerfile -t mrnejah/udagram-api-feed:v1 udagram-api-feed
@@ -15,9 +15,8 @@ script :
  -docker build -f udagram-reverseproxy/Dockerfile -t mrnejah/udagram-reverseproxy:v1 udagram-reverseproxy
                                                                                  
 after success :
- - echo " $ DOCKER_PASSWORD " | docker login -u " $ DOCKER_USERNAME "
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   -docker push mrnejah/udagram-api-feed:v1
   -docker push mrnejah/udagram-api-user:v1
   -docker push mrnejah/udagram-frontend:v1
  -docker push mrnejah/udagram-reverseproxy:v1
-                                                                  -password - stdin
